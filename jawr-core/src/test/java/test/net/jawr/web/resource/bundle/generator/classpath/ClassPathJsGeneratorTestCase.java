@@ -17,18 +17,18 @@ import java.io.File;
 import java.io.Reader;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import net.jawr.web.JawrConstant;
@@ -47,7 +47,7 @@ import test.net.jawr.web.servlet.mock.MockServletContext;
  *
  * @author Ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ClassPathJsGeneratorTestCase {
 
 	private static final String WORK_DIR = "workDirClasspathJs";
@@ -93,7 +93,7 @@ public class ClassPathJsGeneratorTestCase {
 				File f = new File((String) invocation.getArguments()[0]);
 				return f.lastModified();
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 
 		generator.setWorkingDirectory(FileUtils.getClasspathRootDir() + "/" + WORK_DIR);
 		generator.setResourceReaderHandler(rsReaderHandler);

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +70,7 @@ public class AutoPrefixerTest {
 		processor = new AutoPrefixerPostProcessor();
 		when(config.getContext()).thenReturn(context);
 
-		when(config.getJavascriptEngineName(Matchers.anyString())).thenReturn(jsEngineName);
+		when(config.getJavascriptEngineName(ArgumentMatchers.anyString())).thenReturn(jsEngineName);
 		when(config.getProperty(AUTOPREFIXER_SCRIPT_OPTIONS, AUTOPREFIXER_DEFAULT_OPTIONS))
 				.thenReturn(AUTOPREFIXER_DEFAULT_OPTIONS);
 		when(config.getProperty(AUTOPREFIXER_SCRIPT_LOCATION, AUTOPREFIXER_SCRIPT_DEFAULT_LOCATION))

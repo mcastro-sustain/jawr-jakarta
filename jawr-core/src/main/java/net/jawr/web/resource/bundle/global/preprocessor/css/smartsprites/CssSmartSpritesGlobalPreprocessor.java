@@ -199,8 +199,19 @@ public class CssSmartSpritesGlobalPreprocessor extends AbstractChainedGlobalProc
 			}
 		}
 
-		SmartSpritesParameters params = new SmartSpritesParameters("/", null, outDir, null, msgLevel, "",
-				PngDepth.valueOf("AUTO"), false, charset.toString(), true);
+		// Configure SmartSprites parameters
+		// Constructor: rootDir, cssFiles, outputDir, documentRootDir, logLevel, cssFileSuffix, pngDepth, spritePngIe6, cssFileEncoding
+		SmartSpritesParameters params = new SmartSpritesParameters(
+			"/",                    // rootDir
+			null,                   // cssFiles (null means process all CSS files found)
+			outDir,                 // outputDir
+			null,                   // documentRootDir (not used in this context)
+			msgLevel,               // logLevel
+			"",                     // cssFileSuffix (no suffix)
+			PngDepth.AUTO,          // pngDepth
+			false,                  // spritePngIe6 (no IE6 compatibility mode)
+			charset.toString()      // cssFileEncoding
+		);
 
 		SpriteBuilder spriteBuilder = new SpriteBuilder(params, messageLog, smartSpriteRsHandler);
 		try {

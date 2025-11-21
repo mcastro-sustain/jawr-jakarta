@@ -16,11 +16,11 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -64,7 +64,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 
 		// Check access to link with wrong hashcode
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix() + "/jawrJS/777777.en_US/js/bundle/msg.js")
 				.getWebResponse().getStatusCode();
@@ -85,7 +85,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 
 		// Check access to link with wrong hashcode
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix() + "/jawrCSS/777777/fwk/core/component.css")
 				.getWebResponse().getStatusCode();
@@ -106,7 +106,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 
 		// Check access to link with wrong hashcode already referenced in img tag
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix()
 						+ "/jawrBin/cb7777777/img/appIcons/application.png")
@@ -128,7 +128,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 			MalformedURLException, IOException {
 
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		String resource = getServerUrlPrefix() + getUrlPrefix() + "/jawrJS/js/index/index.js";
 		int status = webClient
 				.getPage(resource)
@@ -142,7 +142,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 			MalformedURLException, IOException {
 
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		String resource = getServerUrlPrefix() + getUrlPrefix() + "/jawrCSS/css/one.css";
 		int status = webClient
 				.getPage(resource)
@@ -156,7 +156,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 			MalformedURLException, IOException {
 
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		String resource = getServerUrlPrefix() + getUrlPrefix() + "/jawrBin/img/logo.png";
 		int status = webClient
 				.getPage(resource)
@@ -170,7 +170,7 @@ public class MainPageStrictModeWithServletMappingTest extends AbstractPageTest {
 			MalformedURLException, IOException {
 
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix() + "/jawrJS/WEB-INF/web.xml")
 				.getWebResponse().getStatusCode();

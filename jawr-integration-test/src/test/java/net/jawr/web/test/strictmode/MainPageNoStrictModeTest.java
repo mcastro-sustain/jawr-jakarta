@@ -14,11 +14,11 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -41,7 +41,7 @@ public class MainPageNoStrictModeTest extends MainPageStrictModeTest {
 
 		// Check access to link with wrong hashcode
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix() + "/777777.en_US/js/bundle/msg.js")
 				.getWebResponse().getStatusCode();
@@ -62,7 +62,7 @@ public class MainPageNoStrictModeTest extends MainPageStrictModeTest {
 
 		// Check access to link with wrong hashcode
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix() + "/777777/fwk/core/component.css")
 				.getWebResponse().getStatusCode();
@@ -83,7 +83,7 @@ public class MainPageNoStrictModeTest extends MainPageStrictModeTest {
 
 		// Check access to resource with wrong hashcode already referenced in img tag
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix()
 						+ "/cb7777777/img/appIcons/application.png")

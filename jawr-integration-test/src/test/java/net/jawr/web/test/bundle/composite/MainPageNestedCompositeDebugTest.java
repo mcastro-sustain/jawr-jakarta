@@ -12,10 +12,9 @@ import net.jawr.web.test.utils.Utils;
 import org.junit.Test;
 import org.webjars.WebJarAssetLocator;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for nested composite bundle page in debug mode.
@@ -94,7 +93,7 @@ public class MainPageNestedCompositeDebugTest extends MainPageNestedCompositeTes
 		final List<?> scripts = getJsScriptTags();
 		int idx = 0;
 		HtmlScript script = (HtmlScript) scripts.get(idx++);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		WebJarAssetLocator locator = new WebJarAssetLocator();
 		
 		assertContentEquals(asPath(locator.getFullPath("angular.js")), page);

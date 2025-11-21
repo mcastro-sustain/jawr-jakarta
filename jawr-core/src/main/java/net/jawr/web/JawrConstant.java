@@ -116,7 +116,7 @@ public class JawrConstant {
 	public static final String JMX_ENABLE_FLAG_SYSTEL_PROPERTY = "com.sun.management.jmxremote";
 
 	/** The servlet temp directory property name */
-	public static final String SERVLET_CONTEXT_TEMPDIR = "javax.servlet.context.tempdir";
+	public static final String SERVLET_CONTEXT_TEMPDIR = "jakarta.servlet.context.tempdir";
 
 	/** The smartsprites temporary directory */
 	public static final String CSS_SMARTSPRITES_TMP_DIR = "/cssSprites/src/";

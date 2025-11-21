@@ -11,13 +11,12 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for page using image generator feature in production mode.
@@ -35,7 +34,7 @@ public class MainPageGeneratedResourceSkinDebugTest extends AbstractPageTest {
 		WebClient webClient = super.createWebClient();
 		
 		// Update the webClient so it will not throw an exception when it will try to load the external JS file which doesn't exists
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		return webClient;
 	}
 
@@ -70,7 +69,7 @@ public class MainPageGeneratedResourceSkinDebugTest extends AbstractPageTest {
 
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/generator/skin/debug/resources/msg-debug.js", page);
 		
 		script = (HtmlScript) scripts.get(1);

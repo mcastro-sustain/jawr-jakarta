@@ -19,11 +19,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import net.jawr.web.JawrConstant;
@@ -38,7 +38,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import net.jawr.web.util.js.JavascriptEngine;
 import test.net.jawr.web.FileUtils;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ResourceBundleMessageGeneratorTestCase {
 
 	private static final String WORK_DIR = "workDirResourceMessages";
@@ -71,7 +71,7 @@ public class ResourceBundleMessageGeneratorTestCase {
 				File f = new File((String) invocation.getArguments()[0]);
 				return f.lastModified();
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 
 		generator.setWorkingDirectory(FileUtils.getClasspathRootDir() + "/" + WORK_DIR);
 		generator.setResourceReaderHandler(rsReaderHandler);

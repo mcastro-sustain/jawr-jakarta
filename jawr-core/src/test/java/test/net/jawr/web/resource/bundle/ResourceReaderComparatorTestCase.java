@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,7 +46,7 @@ import net.jawr.web.resource.handler.reader.ServletContextResourceReader;
  * 
  * @author Ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ResourceReaderComparatorTestCase {
 
 	/** Comparator */

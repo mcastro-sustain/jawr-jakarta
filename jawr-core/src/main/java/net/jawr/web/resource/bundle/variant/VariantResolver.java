@@ -13,7 +13,7 @@
  */
 package net.jawr.web.resource.bundle.variant;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The variant request resolver determines from the HttpServletRequest what is

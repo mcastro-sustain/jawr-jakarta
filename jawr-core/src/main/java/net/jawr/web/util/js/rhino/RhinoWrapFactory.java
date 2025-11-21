@@ -25,8 +25,6 @@
 
 package net.jawr.web.util.js.rhino;
 
-import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
-
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 
@@ -49,6 +47,10 @@ import org.mozilla.javascript.WrapFactory;
  * @author (Original) A. Sundararajan
  */
 final class RhinoWrapFactory extends WrapFactory {
+    // Java 17 compatible: Define the permission locally instead of using sun.security.util
+    private static final RuntimePermission GET_CLASSLOADER_PERMISSION =
+        new RuntimePermission("getClassLoader");
+
     private RhinoWrapFactory() {}
     private static RhinoWrapFactory theInstance;
 

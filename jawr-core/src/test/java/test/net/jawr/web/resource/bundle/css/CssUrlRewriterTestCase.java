@@ -18,14 +18,14 @@ import static org.mockito.Mockito.*;
 
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -40,7 +40,7 @@ import test.net.jawr.web.FileUtils;
  * 
  * @author ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CssUrlRewriterTestCase {
 
 	@Mock
@@ -72,8 +72,8 @@ public class CssUrlRewriterTestCase {
 		binGeneratorRegistry.setConfig(binConfig);
 		when(binRsHandler.getConfig()).thenReturn(binConfig);
 		when(servletCtx.getAttribute(JawrConstant.BINARY_CONTEXT_ATTRIBUTE)).thenReturn(binRsHandler);
-		when(binGeneratorRegistry.isGeneratedBinaryResource(Matchers.startsWith("sprite:"))).thenReturn(true);
-		when(binGeneratorRegistry.isGeneratedBinaryResource(Matchers.startsWith("jar:"))).thenReturn(true);
+		when(binGeneratorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("sprite:"))).thenReturn(true);
+		when(binGeneratorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
 	}
 
 	@Test

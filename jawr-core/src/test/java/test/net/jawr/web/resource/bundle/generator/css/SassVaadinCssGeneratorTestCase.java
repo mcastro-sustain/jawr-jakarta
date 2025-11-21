@@ -1,7 +1,7 @@
 package test.net.jawr.web.resource.bundle.generator.css;
 
 import static net.jawr.web.resource.bundle.generator.css.sass.vaadin.SassVaadinGenerator.SASS_GENERATOR_DEFAULT_URL_MODE;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -18,18 +18,18 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -50,7 +50,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class SassVaadinCssGeneratorTestCase {
 
 	private static String WORK_DIR = "workDirSass";
@@ -94,8 +94,8 @@ public class SassVaadinCssGeneratorTestCase {
 				.thenReturn(SASS_GENERATOR_DEFAULT_URL_MODE);
 		when(config.getBinaryHashAlgorithm()).thenReturn("MD5");
 
-		when(generatorRegistry.isGeneratedBinaryResource(Matchers.startsWith("jar:"))).thenReturn(true);
-		when(generatorRegistry.isHandlingCssImage(Matchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isHandlingCssImage(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
 
 		when(config.getGeneratorRegistry()).thenReturn(generatorRegistry);
 
@@ -138,8 +138,8 @@ public class SassVaadinCssGeneratorTestCase {
 				}
 				return rd;
 			}
-		}).when(rsReaderHandler).getResource(Matchers.any(JoinableResourceBundle.class), Matchers.anyString(),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any());
+		}).when(rsReaderHandler).getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.anyString(),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any());
 
 		Mockito.doAnswer(new Answer<String>() {
 
@@ -155,7 +155,7 @@ public class SassVaadinCssGeneratorTestCase {
 
 				return result;
 			}
-		}).when(rsReaderHandler).getFilePath(Matchers.anyString());
+		}).when(rsReaderHandler).getFilePath(ArgumentMatchers.anyString());
 
 		Mockito.doAnswer(new Answer<Long>() {
 
@@ -166,7 +166,7 @@ public class SassVaadinCssGeneratorTestCase {
 				Long result = f.lastModified();
 				return result;
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 
 		// Make sure that _partial-import.scss is restored
 		Reader rd = new FileReader(FileUtils.getClassPathFile("generator/css/sass/_partial-for-import.scss.backup"));

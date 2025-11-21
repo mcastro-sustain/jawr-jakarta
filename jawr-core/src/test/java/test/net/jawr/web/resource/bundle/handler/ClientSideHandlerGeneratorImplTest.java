@@ -20,9 +20,9 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.exception.BundleDependencyException;

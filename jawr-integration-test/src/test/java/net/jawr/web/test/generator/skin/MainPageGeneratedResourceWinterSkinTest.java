@@ -15,17 +15,16 @@ import net.jawr.web.test.AbstractPageTest;
 import net.jawr.web.test.JawrTestConfigFiles;
 import net.jawr.web.test.utils.Utils;
 
-import org.apache.commons.httpclient.Cookie;
+import org.htmlunit.util.Cookie;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.CookieManager;
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.CookieManager;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -43,10 +42,8 @@ public class MainPageGeneratedResourceWinterSkinTest extends AbstractPageTest {
 	protected WebClient createWebClient() {
 		WebClient webClient = super.createWebClient();
 		CookieManager cookieManager = webClient.getCookieManager();
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.add(Calendar.DAY_OF_MONTH, 10);
-		
-		Cookie cookie = new Cookie("localhost", "mySkinCookie", "winter", "", cal.getTime(), false);
+		// HtmlUnit 4.x Cookie API simplified - basic constructor is sufficient for tests
+		Cookie cookie = new Cookie("localhost", "mySkinCookie", "winter");
 		cookieManager.addCookie(cookie);
 		return webClient;
 	}
@@ -86,7 +83,7 @@ public class MainPageGeneratedResourceWinterSkinTest extends AbstractPageTest {
 
 		final List<HtmlScript> scripts = getJsScriptTags();
 		final HtmlScript script = scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/generator/skin/standard/resources/msg-bundle.js", page);
 	}
 

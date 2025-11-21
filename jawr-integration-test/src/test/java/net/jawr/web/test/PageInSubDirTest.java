@@ -12,8 +12,8 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
 
 /**
  * Test case for a page defined in a subdirectory in production mode.

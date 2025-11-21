@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -35,11 +35,11 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import test.net.jawr.web.FileUtils;
@@ -51,7 +51,7 @@ import test.net.jawr.web.servlet.mock.MockServletContext;
  * @author Ibrahim Chaehoi
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class IECssBundleGeneratorTestCase {
 
 	private JawrConfig config;
@@ -95,8 +95,8 @@ public class IECssBundleGeneratorTestCase {
 		when(pathIterator.nextPath()).thenReturn(new BundlePath(null, "/temp.css"),
 				new BundlePath(null, "jar:/style.css"));
 		when(pathIterator.hasNext()).thenReturn(true, true, true, false, false);
-		when(resourceBundlesHandler.getBundlePaths(Matchers.anyString(),
-				Matchers.any(ConditionalCommentCallbackHandler.class), Matchers.anyMapOf(String.class, String.class)))
+		when(resourceBundlesHandler.getBundlePaths(ArgumentMatchers.anyString(),
+				ArgumentMatchers.any(ConditionalCommentCallbackHandler.class), ArgumentMatchers.anyMap()))
 						.thenReturn(pathIterator);
 
 		when(resourceBundlesHandler.resolveBundleForPath("/bundle.css")).thenReturn(bundle);
@@ -106,8 +106,8 @@ public class IECssBundleGeneratorTestCase {
 		config.setServletMapping("/css");
 		config.setCharsetName("UTF-8");
 
-		when(generatorRegistry.isGeneratedBinaryResource(Matchers.startsWith("jar:"))).thenReturn(true);
-		when(generatorRegistry.isHandlingCssImage(Matchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isHandlingCssImage(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
 		config.setGeneratorRegistry(generatorRegistry);
 
 		generator = new IECssBundleGenerator();
@@ -127,8 +127,8 @@ public class IECssBundleGeneratorTestCase {
 		// Set up the Image servlet Jawr config
 		JawrConfig binaryServletJawrConfig = new JawrConfig(JawrConstant.BINARY_TYPE, new Properties());
 
-		when(binaryGeneratorRegistry.isGeneratedBinaryResource(Matchers.anyString())).thenReturn(true);
-		when(binaryGeneratorRegistry.isHandlingCssImage(Matchers.anyString())).thenReturn(true);
+		when(binaryGeneratorRegistry.isGeneratedBinaryResource(ArgumentMatchers.anyString())).thenReturn(true);
+		when(binaryGeneratorRegistry.isHandlingCssImage(ArgumentMatchers.anyString())).thenReturn(true);
 
 		binaryServletJawrConfig.setGeneratorRegistry(generatorRegistry);
 
@@ -138,7 +138,7 @@ public class IECssBundleGeneratorTestCase {
 			public InputStream answer(InvocationOnMock invocation) throws Throwable {
 				return new ByteArrayInputStream("fakeData".getBytes());
 			}
-		}).when(binaryRsReaderHandler).getResourceAsStream(Matchers.anyString());
+		}).when(binaryRsReaderHandler).getResourceAsStream(ArgumentMatchers.anyString());
 
 		generatorRegistry.setResourceReaderHandler(binaryRsReaderHandler);
 

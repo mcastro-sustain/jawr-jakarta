@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlLink;
 
 import net.jawr.web.test.JawrTestConfigFiles;
 import net.jawr.web.test.MainPageTest;

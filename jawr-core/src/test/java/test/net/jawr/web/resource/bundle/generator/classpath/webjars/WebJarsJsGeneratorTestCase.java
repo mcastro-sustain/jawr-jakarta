@@ -5,17 +5,17 @@ import java.io.Reader;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +33,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class WebJarsJsGeneratorTestCase {
 
 	private static final String WORK_DIR = "workDirWebJars";
@@ -77,7 +77,7 @@ public class WebJarsJsGeneratorTestCase {
 				File f = new File((String) invocation.getArguments()[0]);
 				return f.lastModified();
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 
 		generator.setWorkingDirectory(FileUtils.getClasspathRootDir() + "/" + WORK_DIR);
 		generator.setConfig(config);

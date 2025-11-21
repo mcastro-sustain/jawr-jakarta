@@ -12,9 +12,9 @@ import net.jawr.web.test.MainPageTest;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for nested composite bundle in production mode.
@@ -31,7 +31,7 @@ public class MainPageNestedCompositeTest extends MainPageTest {
 	@Override
 	protected WebClient createWebClient() {
 		WebClient webClient = super.createWebClient();
-		webClient.setJavaScriptEnabled(false);
+		webClient.getOptions().setJavaScriptEnabled(false);
 		return webClient;
 	}
 
@@ -69,7 +69,7 @@ public class MainPageNestedCompositeTest extends MainPageTest {
 
 		final List<HtmlScript> scripts = getJsScriptTags();
 		HtmlScript script = scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/bundle/composite/standard/resources/lib.js", page);
 		
 		script = scripts.get(1);

@@ -12,9 +12,9 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -83,7 +83,7 @@ public class MainPageWithExternalBundleDebugTest extends MainPageDebugTest {
 
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(1);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/debug/resources/msg-debug.js", page);
 		
 		script = (HtmlScript) scripts.get(2);

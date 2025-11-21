@@ -13,8 +13,8 @@ import net.jawr.web.test.MainPageTest;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlScript;
 
 
 /**
@@ -63,7 +63,7 @@ public class MainPageLocaleFrCustomMessageGeneratorNamespaceFilterTest extends M
 		
 		final List<?> scripts = getJsScriptTags();
 		final HtmlScript script = (HtmlScript) scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/locale/resources/msg-bundle-fr-namespace-filter.js", page);
 	}
 	

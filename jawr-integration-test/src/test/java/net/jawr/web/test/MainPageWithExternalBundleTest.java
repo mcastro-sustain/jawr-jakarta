@@ -10,9 +10,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -74,7 +74,7 @@ public class MainPageWithExternalBundleTest extends MainPageTest {
 
 		final List<HtmlScript> scripts = getJsScriptTags();
 		final HtmlScript script = scripts.get(1);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/standard/resources/msg-bundle.js",
 				page);
 	}

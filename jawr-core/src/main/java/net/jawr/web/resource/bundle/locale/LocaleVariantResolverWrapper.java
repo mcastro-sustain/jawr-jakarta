@@ -13,7 +13,7 @@
  */
 package net.jawr.web.resource.bundle.locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.variant.VariantResolver;

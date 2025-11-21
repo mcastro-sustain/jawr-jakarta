@@ -30,17 +30,16 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.CollectingAlertHandler;
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.CollectingAlertHandler;
+import org.htmlunit.TextPage;
+import org.htmlunit.Page;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlScript;
 
 import net.jawr.web.resource.bundle.IOUtils;
 import net.jawr.web.test.JawrIntegrationServer;
@@ -121,7 +120,7 @@ public class AbstractSmartBundlingPageTest {
 	 */
 	protected WebClient createWebClient() {
 
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3);
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
 		// Defines the accepted language for the web client.
 		webClient.addRequestHeader("Accept-Language", getAcceptedLanguage());
 		return webClient;
@@ -234,42 +233,46 @@ public class AbstractSmartBundlingPageTest {
 
 	/**
 	 * Returns the list of HTML script tags which have an src attribute.
-	 * 
+	 *
 	 * @return the list of HTML script tag.
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<HtmlScript> getJsScriptTags() {
-		return (List<HtmlScript>) page.getByXPath("html/head/script[@src]");
+		List<?> elements = page.getByXPath("html/head/script[@src]");
+		return (List<HtmlScript>) elements;
 	}
 
 	/**
 	 * Returns the list of HTML link tags.
-	 * 
+	 *
 	 * @return the list of HTML script tags.
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<HtmlLink> getHtmlLinkTags() {
-		return (List<HtmlLink>) page.getByXPath("html/head/link");
+		List<?> elements = page.getByXPath("html/head/link");
+		return (List<HtmlLink>) elements;
 	}
 
 	/**
 	 * Returns the list of HTML link tags.
-	 * 
+	 *
 	 * @return the list of HTML script tags.
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<HtmlImage> getHtmlImageTags() {
-		return (List<HtmlImage>) page.getByXPath("//img");
+		List<?> elements = page.getByXPath("//img");
+		return (List<HtmlImage>) elements;
 	}
 
 	/**
 	 * Returns the list of HTML link tags.
-	 * 
+	 *
 	 * @return the list of HTML script tags.
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<HtmlImageInput> getHtmlImageInputTags() {
-		return (List<HtmlImageInput>) page.getByXPath("//input[@type='image']");
+		List<?> elements = page.getByXPath("//input[@type='image']");
+		return (List<HtmlImageInput>) elements;
 	}
 
 	/**
@@ -284,7 +287,7 @@ public class AbstractSmartBundlingPageTest {
 	 * @throws MalformedURLException
 	 *             if a MalformedURLException occurs
 	 */
-	protected JavaScriptPage getJavascriptPage(final HtmlScript script) throws IOException, MalformedURLException {
+	protected TextPage getJavascriptPage(final HtmlScript script) throws IOException, MalformedURLException {
 		return webClient.getPage(JawrIntegrationServer.SERVER_URL + script.getSrcAttribute());
 	}
 

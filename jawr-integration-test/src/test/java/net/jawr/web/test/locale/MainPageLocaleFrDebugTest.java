@@ -14,10 +14,9 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 
 /**
@@ -60,7 +59,7 @@ public class MainPageLocaleFrDebugTest extends MainPageLocaleFrTest {
 		
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/locale/resources/msg-debug-fr.js", page);
 		
 		script = (HtmlScript) scripts.get(1);

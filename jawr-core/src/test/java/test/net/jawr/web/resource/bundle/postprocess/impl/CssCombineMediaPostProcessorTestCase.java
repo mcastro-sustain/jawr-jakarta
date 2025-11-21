@@ -17,13 +17,13 @@ import static test.net.jawr.web.TestUtils.assertContentEquals;
 
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.when;
 
@@ -39,7 +39,7 @@ import test.net.jawr.web.servlet.mock.MockServletContext;
  * @author Ibrahim Chaehoi
  * 
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CssCombineMediaPostProcessorTestCase {
 
 	@Mock

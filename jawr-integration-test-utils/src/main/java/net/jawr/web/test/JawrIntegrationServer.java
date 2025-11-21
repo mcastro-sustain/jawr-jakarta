@@ -23,13 +23,13 @@ import java.util.Properties;
 import javax.management.remote.JMXServiceURL;
 
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jetty.ee.webapp.WebAppClassLoader;
 import org.eclipse.jetty.jmx.ConnectorServer;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.webapp.WebAppClassLoader;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.ee11.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,9 +141,9 @@ public class JawrIntegrationServer {
 		}
 
 		jettyWebAppContext = new WebAppContext(webAppRootDir, webAppCtx);
-		jettyWebAppContext.setConfigurationClasses(new String[] { "org.eclipse.jetty.webapp.WebInfConfiguration",
-				"org.eclipse.jetty.webapp.WebXmlConfiguration", "org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
-				"org.eclipse.jetty.annotations.AnnotationConfiguration" });
+		jettyWebAppContext.setConfigurationClasses(new String[] { "org.eclipse.jetty.ee11.webapp.WebInfConfiguration",
+				"org.eclipse.jetty.ee11.webapp.WebXmlConfiguration", "org.eclipse.jetty.ee11.webapp.JettyWebXmlConfiguration",
+				"org.eclipse.jetty.ee11.annotations.AnnotationConfiguration" });
 
 		ContextHandlerCollection contextHandlerCollection = new ContextHandlerCollection();
 		contextHandlerCollection.setHandlers(new Handler[] { jettyWebAppContext });
@@ -230,7 +230,7 @@ public class JawrIntegrationServer {
 		jettyWebAppContext.setClassLoader(webAppClassLoader);
 		// Fix issue with web app context reloading on Windows where deleting
 		// temporary directory fails because of locked files
-		jettyWebAppContext.setPersistTempDirectory(true);
+		jettyWebAppContext.setTempDirectoryPersistent(true);
 
 		if (server.isStopped()) {
 			LOGGER.info("Start jetty server....");

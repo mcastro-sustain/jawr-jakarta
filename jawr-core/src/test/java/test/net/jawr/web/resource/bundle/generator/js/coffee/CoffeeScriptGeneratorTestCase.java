@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -92,8 +92,8 @@ public class CoffeeScriptGeneratorTestCase {
 		when(pathIterator.next()).thenReturn(new BundlePath(null, bundlePath));
 		when(pathIterator.nextPath()).thenReturn(new BundlePath(null, bundlePath));
 		when(pathIterator.hasNext()).thenReturn(true, false, false);
-		when(resourceBundlesHandler.getBundlePaths(Matchers.anyString(),
-				Matchers.any(ConditionalCommentCallbackHandler.class), Matchers.anyMapOf(String.class, String.class)))
+		when(resourceBundlesHandler.getBundlePaths(ArgumentMatchers.anyString(),
+				ArgumentMatchers.any(ConditionalCommentCallbackHandler.class), ArgumentMatchers.anyMap()))
 						.thenReturn(pathIterator);
 
 		when(resourceBundlesHandler.resolveBundleForPath(bundlePath)).thenReturn(bundle);
@@ -117,7 +117,7 @@ public class CoffeeScriptGeneratorTestCase {
 		// Make sure that the version of temp.coffee is the right one
 		FileUtils.copyFile("generator/js/coffeescript/temp.coffee.backup", "generator/js/coffeescript/temp.coffee");
 
-		when(rsReaderHandler.getFilePath(Matchers.anyString()))
+		when(rsReaderHandler.getFilePath(ArgumentMatchers.anyString()))
 				.thenReturn(FileUtils.getClassPathFileAbsolutePath("generator/js/coffeescript/temp.coffee"));
 		Mockito.doAnswer(new Answer<Long>() {
 
@@ -128,7 +128,7 @@ public class CoffeeScriptGeneratorTestCase {
 				Long result = f.lastModified();
 				return result;
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 
 		Mockito.doAnswer(new Answer<Reader>() {
 
@@ -144,8 +144,8 @@ public class CoffeeScriptGeneratorTestCase {
 				}
 				return rd;
 			}
-		}).when(rsReaderHandler).getResource(Matchers.any(JoinableResourceBundle.class), Matchers.anyString(),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any());
+		}).when(rsReaderHandler).getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.anyString(),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any());
 
 		generator.setResourceReaderHandler(rsReaderHandler);
 		generator.setConfig(config);

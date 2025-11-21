@@ -15,13 +15,12 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for standard page in production mode.
@@ -63,7 +62,7 @@ public class MainPageDebugStrictModeWithServletMappingTest extends MainPageStric
 
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/debug/resources/msg-debug.js", page);
 		
 		script = (HtmlScript) scripts.get(1);
@@ -112,7 +111,7 @@ public class MainPageDebugStrictModeWithServletMappingTest extends MainPageStric
 
 		// Check access to link with wrong hashcode already referenced in img tag
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix()
 						+ "/jawrBin/cb7777777/img/appIcons/application.png")

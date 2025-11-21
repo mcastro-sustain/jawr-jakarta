@@ -22,7 +22,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -42,11 +42,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import test.net.jawr.web.FileUtils;
@@ -56,7 +56,7 @@ import test.net.jawr.web.servlet.mock.MockServletContext;
  *
  * @author Ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ClassPathCssGeneratorTestCase {
 
 private static final String WORK_DIR = "workDirClasspathCss";
@@ -111,7 +111,7 @@ private static final String WORK_DIR = "workDirClasspathCss";
 			public InputStream answer(InvocationOnMock invocation) throws Throwable {
 				return new ByteArrayInputStream("fakeData".getBytes());
 			}
-		}).when(binaryRsReaderHandler).getResourceAsStream(Matchers.anyString());
+		}).when(binaryRsReaderHandler).getResourceAsStream(ArgumentMatchers.anyString());
 		
 		Mockito.doAnswer(new Answer<Long>() {
 			@Override
@@ -119,15 +119,15 @@ private static final String WORK_DIR = "workDirClasspathCss";
 				File f = new File((String) invocation.getArguments()[0]);
 				return f.lastModified();
 			}
-		}).when(rsReaderHandler).getLastModified(Matchers.anyString());
+		}).when(rsReaderHandler).getLastModified(ArgumentMatchers.anyString());
 				
 		
 		BinaryResourcesHandler binaryRsHandler = new BinaryResourcesHandler(binaryServletJawrConfig, binaryRsReaderHandler, null);
 		servletContext.setAttribute(JawrConstant.BINARY_CONTEXT_ATTRIBUTE, binaryRsHandler);
 		generator.setConfig(config);
 		
-		when(generatorRegistry.isHandlingCssImage(Matchers.anyString())).thenReturn(true);
-		when(generatorRegistry.isGeneratedBinaryResource(Matchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isHandlingCssImage(ArgumentMatchers.anyString())).thenReturn(true);
+		when(generatorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
 		
 		generator.setWorkingDirectory(FileUtils.getClasspathRootDir()+"/"+WORK_DIR);
 		generator.setResourceReaderHandler(rsReaderHandler);
@@ -172,7 +172,7 @@ private static final String WORK_DIR = "workDirClasspathCss";
 		Reader strReader = new StringReader(FileUtils.readClassPathFile("generator/classpath/temp.css"));
 		when(generatorRegistry.isPathGenerated("/generator/classpath/temp.less")).thenReturn(true);
 		TextResourceGenerator lessGenerator = Mockito.mock(TextResourceGenerator.class);
-		when(lessGenerator.createResource(Matchers.any(GeneratorContext.class))).thenReturn(strReader);
+		when(lessGenerator.createResource(ArgumentMatchers.any(GeneratorContext.class))).thenReturn(strReader);
 		when(generatorRegistry.getResourceGenerator("/generator/classpath/temp.less")).thenReturn(lessGenerator);
 		
 		// Check result in Production mode

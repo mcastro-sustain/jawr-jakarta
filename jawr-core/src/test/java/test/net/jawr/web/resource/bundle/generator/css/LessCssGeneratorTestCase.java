@@ -1,6 +1,6 @@
 package test.net.jawr.web.resource.bundle.generator.css;
 
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -15,18 +15,18 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +47,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class LessCssGeneratorTestCase {
 
 	private static String WORK_DIR = "workDirLess";
@@ -88,8 +88,8 @@ public class LessCssGeneratorTestCase {
 		config.setContext(servletContext);
 		config.setServletMapping("/css");
 		config.setCharsetName("UTF-8");
-		when(generatorRegistry.isGeneratedBinaryResource(Matchers.startsWith("jar:"))).thenReturn(true);
-		when(generatorRegistry.isHandlingCssImage(Matchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isGeneratedBinaryResource(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
+		when(generatorRegistry.isHandlingCssImage(ArgumentMatchers.startsWith("jar:"))).thenReturn(true);
 
 		config.setGeneratorRegistry(generatorRegistry);
 
@@ -137,8 +137,8 @@ public class LessCssGeneratorTestCase {
 	public void testLessCssBundleGeneratorInProductionMode() throws Exception {
 
 		String tempLessContent = FileUtils.readClassPathFile("generator/css/less/temp.less");
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/temp.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/temp.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		when(rsReaderHandler.getResourceAsStream(anyString()))
 				.thenReturn(new ByteArrayInputStream("fakeData".getBytes()));
 
@@ -157,8 +157,8 @@ public class LessCssGeneratorTestCase {
 	public void testLessCssBundleGeneratorInDebugMode() throws Exception {
 
 		String tempLessContent = FileUtils.readClassPathFile("generator/css/less/temp.less");
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/temp.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/temp.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		when(rsReaderHandler.getResourceAsStream(anyString()))
 				.thenReturn(new ByteArrayInputStream("fakeData".getBytes()));
 
@@ -172,8 +172,8 @@ public class LessCssGeneratorTestCase {
 		assertEquals(0, filePathMappings.size());
 
 		// Checks retrieve from cache
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/temp.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/temp.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		
 		ctx.setProcessingBundle(false);
 		rd = generator.createResource(ctx);
@@ -190,8 +190,8 @@ public class LessCssGeneratorTestCase {
 
 		binaryServletJawrConfig.setServletMapping("/jawr/binary/");
 		String tempLessContent = FileUtils.readClassPathFile("generator/css/less/temp.less");
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/temp.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/temp.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		when(rsReaderHandler.getResourceAsStream(anyString()))
 				.thenReturn(new ByteArrayInputStream("fakeData".getBytes()));
 
@@ -205,8 +205,8 @@ public class LessCssGeneratorTestCase {
 		assertEquals(0, filePathMappings.size());
 
 		// Checks retrieve from cache
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/temp.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/temp.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		
 		ctx.setProcessingBundle(false);
 		rd = generator.createResource(ctx);
@@ -360,8 +360,8 @@ public class LessCssGeneratorTestCase {
 		ctx.setResourceReaderHandler(rsReaderHandler);
 
 		String tempLessContent = FileUtils.readClassPathFile("generator/css/less/import_quotes.less");
-		when(rsReaderHandler.getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq("/import_quotes.less"),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any())).thenReturn(new StringReader(tempLessContent));
+		when(rsReaderHandler.getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq("/import_quotes.less"),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any())).thenReturn(new StringReader(tempLessContent));
 		when(rsReaderHandler.getResourceAsStream(anyString()))
 				.thenReturn(new ByteArrayInputStream("fakeData".getBytes()));
 
@@ -394,8 +394,8 @@ public class LessCssGeneratorTestCase {
 			public Reader answer(InvocationOnMock invocation) throws Throwable {
 				return new StringReader(lessContent);
 			}
-		}).when(rsReaderHandler).getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq(resourceName),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any());
+		}).when(rsReaderHandler).getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq(resourceName),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -411,7 +411,7 @@ public class LessCssGeneratorTestCase {
 			public Reader answer(InvocationOnMock invocation) throws Throwable {
 				return new StringReader(lessContent);
 			}
-		}).when(rsReaderHandler).getResource(Matchers.any(JoinableResourceBundle.class), Matchers.eq(resourceName),
-				Matchers.anyBoolean(), (List<Class<?>>) Matchers.any());
+		}).when(rsReaderHandler).getResource(ArgumentMatchers.any(JoinableResourceBundle.class), ArgumentMatchers.eq(resourceName),
+				ArgumentMatchers.anyBoolean(), (List<Class<?>>) ArgumentMatchers.any());
 	}
 }

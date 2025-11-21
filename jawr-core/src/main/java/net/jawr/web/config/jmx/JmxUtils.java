@@ -24,7 +24,7 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.exception.JmxConfigException;
 import net.jawr.web.util.ServletContextUtils;

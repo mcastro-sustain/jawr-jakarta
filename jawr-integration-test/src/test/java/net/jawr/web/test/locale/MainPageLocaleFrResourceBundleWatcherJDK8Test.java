@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.junit.Assume;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlScript;
 
 import static org.junit.Assert.assertEquals;
 
@@ -55,7 +55,7 @@ public class MainPageLocaleFrResourceBundleWatcherJDK8Test extends MainPageLocal
 
 		final List<?> scripts = getJsScriptTags();
 		final HtmlScript script = (HtmlScript) scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/locale/resources/msg-bundle-fr-updated-jdk8.js", page);
 	}
 

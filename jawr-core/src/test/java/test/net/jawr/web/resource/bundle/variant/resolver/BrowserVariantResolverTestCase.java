@@ -6,14 +6,14 @@ package test.net.jawr.web.resource.bundle.variant.resolver;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.jawr.web.resource.bundle.variant.resolver.BrowserResolver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * The Browser resolver testcase
@@ -21,7 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author ibrahim Chaehoi
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class BrowserVariantResolverTestCase {
 
 	private static final String USER_AGENT_HEADER = "User-Agent";

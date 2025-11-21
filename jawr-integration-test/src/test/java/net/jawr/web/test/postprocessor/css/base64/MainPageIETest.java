@@ -12,14 +12,13 @@ import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 import net.jawr.web.test.AbstractPageTest;
 import net.jawr.web.test.JawrTestConfigFiles;
@@ -49,7 +48,7 @@ public class MainPageIETest extends AbstractPageTest {
 	 */
 	protected WebClient createWebClient() {
 
-		WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_6);
+		WebClient webClient = new WebClient(BrowserVersion.EDGE);
 		// Defines the accepted language for the web client.
 		webClient.addRequestHeader("Accept-Language", getAcceptedLanguage());
 		return webClient;
@@ -85,7 +84,7 @@ public class MainPageIETest extends AbstractPageTest {
 
 		final List<HtmlScript> scripts = getJsScriptTags();
 		final HtmlScript script = scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/postprocessor/css/base64/resources/msg-bundle.js", page);
 	}
 

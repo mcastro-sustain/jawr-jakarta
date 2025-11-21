@@ -15,7 +15,7 @@ package test.net.jawr.web.resource.bundle.postprocess.impl.js.uglify;
 
 import static org.junit.Assert.assertEquals;
 
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -23,7 +23,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +76,7 @@ public class UglifyTest {
 
 		initMocks(this);
 		when(config.getContext()).thenReturn(context);
-		when(config.getJavascriptEngineName(Matchers.anyString())).thenReturn(
+		when(config.getJavascriptEngineName(ArgumentMatchers.anyString())).thenReturn(
 				JawrConstant.DEFAULT_JS_ENGINE);
 		when(context.getResourceAsStream(anyString())).thenReturn(null);
 	}

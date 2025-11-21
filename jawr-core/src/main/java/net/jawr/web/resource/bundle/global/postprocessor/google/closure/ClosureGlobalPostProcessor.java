@@ -16,15 +16,9 @@
 package net.jawr.web.resource.bundle.global.postprocessor.google.closure;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,16 +35,12 @@ import java.util.zip.GZIPOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.CharStreams;
 import com.google.javascript.jscomp.CommandLineRunner;
 import com.google.javascript.jscomp.Compiler;
-import com.google.javascript.jscomp.SourceFile;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.exception.BundlingProcessException;
-import net.jawr.web.exception.ResourceNotFoundException;
-import net.jawr.web.resource.bundle.IOUtils;
 import net.jawr.web.resource.bundle.JoinableResourceBundle;
 import net.jawr.web.resource.bundle.factory.global.postprocessor.GlobalPostProcessingContext;
 import net.jawr.web.resource.bundle.factory.util.PathNormalizer;
@@ -211,6 +201,16 @@ public class ClosureGlobalPostProcessor extends AbstractChainedGlobalProcessor<G
 			// Copy the bundle files in a temp directory
 			try {
 				FileUtils.copyDirectory(new File(srcDir), new File(tempDir));
+
+				// Create the JAWR root module file as an empty file in the temp directory
+				// This is needed by the Closure Compiler for dependency management
+				File jawrRootModuleFile = new File(tempDir, JAWR_ROOT_MODULE_JS);
+				if (!jawrRootModuleFile.exists()) {
+					jawrRootModuleFile.getParentFile().mkdirs();
+					if (!jawrRootModuleFile.createNewFile()) {
+						throw new BundlingProcessException("Failed to create JAWR root module file: " + jawrRootModuleFile.getAbsolutePath());
+					}
+				}
 
 				Map<String, String> resultBundleMapping = new HashMap<>();
 				JawrClosureCommandLineRunner cmdRunner = new JawrClosureCommandLineRunner(ctx, bundles,
@@ -668,73 +668,18 @@ public class ClosureGlobalPostProcessor extends AbstractChainedGlobalProcessor<G
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.google.javascript.jscomp.AbstractCommandLineRunner#
 		 * checkModuleName (java.lang.String)
 		 */
 		@Override
-		protected void checkModuleName(String name) throws FlagUsageException {
-
+		protected void checkModuleName(String name) {
+			// Module name checking - implementation not needed for JAWR
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * com.google.javascript.jscomp.AbstractCommandLineRunner#createInputs(
-		 * java.util.List, java.util.List, boolean, java.util.List)
-		 */
-		@Override
-		protected List<SourceFile> createInputs(List<FlagEntry<JsSourceType>> files, List<JsonFileSpec> jsonFiles,
-				boolean allowStdIn, List<JsModuleSpec> jsModuleSpecs) {
-
-			List<SourceFile> inputs = new ArrayList<>(files.size());
-
-			for (FlagEntry<JsSourceType> jsSource : files) {
-				String filename = jsSource.getValue();
-
-				// for (String filename : files) {
-				if (filename.equals(JAWR_ROOT_MODULE_JS)) {
-					SourceFile newFile = SourceFile.fromCode(filename, "");
-					inputs.add(newFile);
-				} else if (!"-".equals(filename)) {
-					Reader rd = null;
-					StringWriter swr = new StringWriter();
-					InputStream is = null;
-					try {
-						try {
-							is = new FileInputStream(new File(tempDir, filename));
-							rd = Channels.newReader(Channels.newChannel(is),
-									ctx.getJawrConfig().getResourceCharset().displayName());
-						} catch (FileNotFoundException e) {
-							// Do nothing
-						}
-
-						try {
-							if (rd == null) {
-								rd = ctx.getRsReaderHandler().getResource(filename);
-							}
-
-							String jsCode = CharStreams.toString(rd);
-							SourceFile newFile = SourceFile.fromCode(filename, jsCode);
-							inputs.add(newFile);
-						} catch (IOException | ResourceNotFoundException e) {
-							throw new BundlingProcessException(e);
-						}
-
-					} finally {
-						IOUtils.close(is);
-						IOUtils.close(rd);
-						IOUtils.close(swr);
-					}
-				}
-			}
-			return inputs;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.google.javascript.jscomp.AbstractCommandLineRunner#
 		 * filenameToOutputStream(java.lang.String)
 		 */
@@ -766,7 +711,7 @@ public class ClosureGlobalPostProcessor extends AbstractChainedGlobalProcessor<G
 		 * @see
 		 * com.google.javascript.jscomp.JawrAbstractCommandLineRunner#doRun()
 		 */
-		public int doRun() throws FlagUsageException, IOException {
+		public int doRun() throws IOException {
 			int result = super.doRun();
 			// Delete JAWR_ROOT_MODULE file
 			File jawrRootModuleFile = new File(destDir, resultBundleMapping.get(JAWR_ROOT_MODULE_NAME));

@@ -15,7 +15,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.exception.BundleDependencyException;

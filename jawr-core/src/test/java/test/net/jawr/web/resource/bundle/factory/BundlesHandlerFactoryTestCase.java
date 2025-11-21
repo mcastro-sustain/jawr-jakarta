@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.exception.BundleDependencyException;
@@ -37,16 +37,16 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * @author Ibrahim Chaehoi
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class BundlesHandlerFactoryTestCase {
 
 	@Mock
@@ -58,9 +58,9 @@ public class BundlesHandlerFactoryTestCase {
 	@Before
 	public void setup() throws ResourceNotFoundException{
 		when(resourceBundleHandler.getResourceType()).thenReturn("css");
-		when(resourceReaderHandler.getResourceNames(Matchers.anyString())).thenReturn(new HashSet<String>());
-		when(resourceReaderHandler.getResource(Matchers.anyString())).thenThrow(new ResourceNotFoundException(""));
-		when(resourceReaderHandler.getResource((JoinableResourceBundle) Matchers.any(), Matchers.anyString(), Matchers.anyBoolean())).thenThrow(new ResourceNotFoundException(""));
+		when(resourceReaderHandler.getResourceNames(ArgumentMatchers.anyString())).thenReturn(new HashSet<String>());
+		when(resourceReaderHandler.getResource(ArgumentMatchers.anyString())).thenThrow(new ResourceNotFoundException(""));
+		when(resourceReaderHandler.getResource((JoinableResourceBundle) ArgumentMatchers.any(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean())).thenThrow(new ResourceNotFoundException(""));
 	}
 	
 	@Test

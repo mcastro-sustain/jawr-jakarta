@@ -11,12 +11,11 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for IE css bundle generator in debug mode.
@@ -29,7 +28,7 @@ public class MainPageIECssBundleDebugTest extends MainPageIECssBundleTest {
 	@Override
 	protected WebClient createWebClient() {
 		
-		WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_6);
+		WebClient webClient = new WebClient(BrowserVersion.EDGE);
 		// Defines the accepted language for the web client.
 		webClient.addRequestHeader("Accept-Language", getAcceptedLanguage());
 		return webClient;
@@ -66,7 +65,7 @@ public class MainPageIECssBundleDebugTest extends MainPageIECssBundleTest {
 
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/generator/iecssbundle/debug/resources/msg-debug.js", page);
 		
 		script = (HtmlScript) scripts.get(1);

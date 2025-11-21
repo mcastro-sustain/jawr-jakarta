@@ -23,8 +23,8 @@ import net.jawr.web.test.JawrTestConfigFiles;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlLink;
 
 /**
  * Integration Test for Autoprefixer postprocessor

@@ -26,10 +26,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
 import org.slf4j.Logger;
@@ -71,7 +71,7 @@ public class MockServletContext implements ServletContext {
 
 		tempDir = tempDir.replace('/', File.separatorChar);
 		tempDir = tempDir.replaceAll("%20", " ");
-		setAttribute("javax.servlet.context.tempdir", new File(tempDir));
+		setAttribute("jakarta.servlet.context.tempdir", new File(tempDir));
 	}
 
 	/*
@@ -349,12 +349,329 @@ public class MockServletContext implements ServletContext {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see javax.servlet.ServletContext#getContextPath()
 	 */
 	@Override
 	public String getContextPath() {
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#setResponseCharacterEncoding(java.lang.String)
+	 */
+	@Override
+	public void setResponseCharacterEncoding(String encoding) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getResponseCharacterEncoding()
+	 */
+	@Override
+	public String getResponseCharacterEncoding() {
+		return "UTF-8";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#setRequestCharacterEncoding(java.lang.String)
+	 */
+	@Override
+	public void setRequestCharacterEncoding(String encoding) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getRequestCharacterEncoding()
+	 */
+	@Override
+	public String getRequestCharacterEncoding() {
+		return "UTF-8";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#setSessionTimeout(int)
+	 */
+	@Override
+	public void setSessionTimeout(int sessionTimeout) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getSessionTimeout()
+	 */
+	@Override
+	public int getSessionTimeout() {
+		return 30;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getVirtualServerName()
+	 */
+	@Override
+	public String getVirtualServerName() {
+		return "mock-server";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#declareRoles(java.lang.String...)
+	 */
+	@Override
+	public void declareRoles(String... roleNames) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getClassLoader()
+	 */
+	@Override
+	public ClassLoader getClassLoader() {
+		return Thread.currentThread().getContextClassLoader();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getJspConfigDescriptor()
+	 */
+	@Override
+	public jakarta.servlet.descriptor.JspConfigDescriptor getJspConfigDescriptor() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#createListener(java.lang.Class)
+	 */
+	@Override
+	public <T extends java.util.EventListener> T createListener(Class<T> c) throws jakarta.servlet.ServletException {
+		try {
+			return c.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new jakarta.servlet.ServletException("Cannot create listener", e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#addListener(java.lang.String)
+	 */
+	@Override
+	public void addListener(String className) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#addListener(java.util.EventListener)
+	 */
+	@Override
+	public <T extends java.util.EventListener> void addListener(T t) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#addListener(java.lang.Class)
+	 */
+	@Override
+	public void addListener(Class<? extends java.util.EventListener> listenerClass) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getEffectiveMajorVersion()
+	 */
+	@Override
+	public int getEffectiveMajorVersion() {
+		return 6;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getEffectiveMinorVersion()
+	 */
+	@Override
+	public int getEffectiveMinorVersion() {
+		return 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#setSessionTrackingModes(java.util.Set)
+	 */
+	@Override
+	public void setSessionTrackingModes(java.util.Set<jakarta.servlet.SessionTrackingMode> sessionTrackingModes) {
+		// Mock implementation - no-op
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getDefaultSessionTrackingModes()
+	 */
+	@Override
+	public java.util.Set<jakarta.servlet.SessionTrackingMode> getDefaultSessionTrackingModes() {
+		return java.util.EnumSet.of(jakarta.servlet.SessionTrackingMode.COOKIE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getEffectiveSessionTrackingModes()
+	 */
+	@Override
+	public java.util.Set<jakarta.servlet.SessionTrackingMode> getEffectiveSessionTrackingModes() {
+		return java.util.EnumSet.of(jakarta.servlet.SessionTrackingMode.COOKIE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see jakarta.servlet.ServletContext#getSessionCookieConfig()
+	 */
+	@Override
+	public jakarta.servlet.SessionCookieConfig getSessionCookieConfig() {
+		return new jakarta.servlet.SessionCookieConfig() {
+			@Override
+			public void setName(String name) {}
+			@Override
+			public String getName() { return "JSESSIONID"; }
+			@Override
+			public void setDomain(String domain) {}
+			@Override
+			public String getDomain() { return null; }
+			@Override
+			public void setPath(String path) {}
+			@Override
+			public String getPath() { return "/"; }
+			@Override
+			public void setComment(String comment) {}
+			@Override
+			public String getComment() { return null; }
+			@Override
+			public void setHttpOnly(boolean httpOnly) {}
+			@Override
+			public boolean isHttpOnly() { return false; }
+			@Override
+			public void setSecure(boolean secure) {}
+			@Override
+			public boolean isSecure() { return false; }
+			@Override
+			public void setMaxAge(int maxAge) {}
+			@Override
+			public int getMaxAge() { return -1; }
+			@Override
+			public void setAttribute(String name, String value) {}
+			@Override
+			public String getAttribute(String name) { return null; }
+			@Override
+			public java.util.Map<String, String> getAttributes() { return new java.util.HashMap<>(); }
+		};
+	}
+
+	@Override
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String servletName, String className) {
+		return null;
+	}
+
+	@Override
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet) {
+		return null;
+	}
+
+	@Override
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass) {
+		return null;
+	}
+
+	@Override
+	public jakarta.servlet.ServletRegistration.Dynamic addJspFile(String servletName, String jspFile) {
+		return null;
+	}
+
+	@Override
+	public <T extends Servlet> T createServlet(Class<T> clazz) throws jakarta.servlet.ServletException {
+		try {
+			return clazz.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new jakarta.servlet.ServletException("Cannot create servlet", e);
+		}
+	}
+
+	@Override
+	public jakarta.servlet.ServletRegistration getServletRegistration(String servletName) {
+		return null;
+	}
+
+	@Override
+	public java.util.Map<String, ? extends jakarta.servlet.ServletRegistration> getServletRegistrations() {
+		return new java.util.HashMap<>();
+	}
+
+	@Override
+	public jakarta.servlet.FilterRegistration.Dynamic addFilter(String filterName, String className) {
+		return null;
+	}
+
+	@Override
+	public jakarta.servlet.FilterRegistration.Dynamic addFilter(String filterName, jakarta.servlet.Filter filter) {
+		return null;
+	}
+
+	@Override
+	public jakarta.servlet.FilterRegistration.Dynamic addFilter(String filterName, Class<? extends jakarta.servlet.Filter> filterClass) {
+		return null;
+	}
+
+	@Override
+	public <T extends jakarta.servlet.Filter> T createFilter(Class<T> clazz) throws jakarta.servlet.ServletException {
+		try {
+			return clazz.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new jakarta.servlet.ServletException("Cannot create filter", e);
+		}
+	}
+
+	@Override
+	public jakarta.servlet.FilterRegistration getFilterRegistration(String filterName) {
+		return null;
+	}
+
+	@Override
+	public java.util.Map<String, ? extends jakarta.servlet.FilterRegistration> getFilterRegistrations() {
+		return new java.util.HashMap<>();
+	}
+
+	@Override
+	public boolean setInitParameter(String name, String value) {
+		return false;
 	}
 
 }

@@ -13,7 +13,7 @@
  */
 package net.jawr.web.util;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 /**
  * Utility class for ServeltContext

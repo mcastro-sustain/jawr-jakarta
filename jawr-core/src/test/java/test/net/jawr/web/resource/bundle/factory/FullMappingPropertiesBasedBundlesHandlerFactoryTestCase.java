@@ -18,10 +18,10 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.resource.bundle.CompositeResourceBundle;
@@ -47,7 +47,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
  * @author Ibrahim Chaehoi
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 	@Mock
@@ -85,7 +85,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		when(rsHandler.getLastModified(filePathScript2)).thenReturn(script2LastModified);
 		when(rsHandler.getLastModified(filePathScript)).thenReturn(scriptLastModified);
 
-		when(rsHandler.getResourceNames(Matchers.anyString()))
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString()))
 				.thenReturn(new HashSet<>(Arrays.asList("script1.js", "script2.js")));
 		when(chainFactory.buildPostProcessorChain("myBundlePostProcessor1,myBundlePostProcessor2"))
 				.thenReturn(bundleProcessor);
@@ -162,7 +162,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		Set<String> expectedLocales = new HashSet<>(Arrays.asList("", "fr", "en_US"));
 		Map<String, VariantSet> variants = new HashMap<>();
 		variants.put("locale", new VariantSet("locale", "", expectedLocales));
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(variants);
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(variants);
 		FullMappingPropertiesBasedBundlesHandlerFactory factory = new FullMappingPropertiesBasedBundlesHandlerFactory(
 				"js", rsHandler, generatorRegistry, chainFactory);
 
@@ -226,7 +226,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle stdBundle = getStdBundle("myBundle", debugInclusion);
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(stdBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(stdBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		// Simulate modified resources
@@ -290,13 +290,13 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle stdBundle = getStdBundle("myBundle", debugInclusion);
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(stdBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(stdBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		// Simulate modified path mapping
 		when(rsHandler.getFilePath("/bundle/content/script3.js")).thenReturn(filePathScript3);
 		when(rsHandler.getLastModified(filePathScript3)).thenReturn(script3LastModified);
-		when(rsHandler.getResourceNames(Matchers.anyString()))
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString()))
 				.thenReturn(new HashSet<>(Arrays.asList("script1.js", "script2.js", "script3.js")));
 
 		List<JoinableResourceBundle> resourcesBundles = factory.getResourceBundles(props);
@@ -356,11 +356,11 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle stdBundle = getStdBundle("myBundle", debugInclusion);
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(stdBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(stdBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		// Simulate modified path mapping
-		when(rsHandler.getResourceNames(Matchers.anyString())).thenReturn(new HashSet<>(Arrays.asList("script1.js")));
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString())).thenReturn(new HashSet<>(Arrays.asList("script1.js")));
 
 		List<JoinableResourceBundle> resourcesBundles = factory.getResourceBundles(props);
 		assertEquals(1, resourcesBundles.size());
@@ -418,11 +418,11 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle stdBundle = getStdBundle("myBundle", debugInclusion);
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(stdBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(stdBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		// Simulate modified path mapping
-		when(rsHandler.getResourceNames(Matchers.anyString()))
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString()))
 				.thenReturn(new HashSet<>(Arrays.asList("script1.js", "script3.js")));
 		when(rsHandler.getFilePath("/bundle/content/script3.js")).thenReturn(filePathScript3);
 		when(rsHandler.getLastModified(filePathScript3)).thenReturn(script3LastModified);
@@ -487,11 +487,11 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		variants.put(JawrConstant.LOCALE_VARIANT_TYPE,
 				new VariantSet(JawrConstant.LOCALE_VARIANT_TYPE, "", Arrays.asList("", "fr", "en_US", "es_ES")));
 
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(variants);
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(variants);
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		// Simulate modified path mapping
-		when(rsHandler.getResourceNames(Matchers.anyString()))
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString()))
 				.thenReturn(new HashSet<>(Arrays.asList("script1.js", "script3.js")));
 		when(rsHandler.getFilePath("/bundle/content/script3.js")).thenReturn(filePathScript3);
 		when(rsHandler.getLastModified(filePathScript3)).thenReturn(script3LastModified);
@@ -552,7 +552,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle compositeBundle = getCompositeBundle("myBundle");
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(compositeBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(compositeBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(compositeBundle, "js", props);
 
 		List<JoinableResourceBundle> resourcesBundles = factory.getResourceBundles(props);
@@ -648,7 +648,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 
 		DebugInclusion debugInclusion = DebugInclusion.ALWAYS;
 		JoinableResourceBundle compositeBundle = getCompositeBundle("myBundle");
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(compositeBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(compositeBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(compositeBundle, "js", props);
 
 		// Simulate modified resources
@@ -757,7 +757,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		List<JoinableResourceBundle> bundleWithDependencies = getBundleWithDependencies(inclusion);
 		for (JoinableResourceBundle aBundle : bundleWithDependencies) {
 			JoinableResourceBundlePropertySerializer.serializeInProperties(aBundle, "js", props);
-			when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(aBundle.getVariants());
+			when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(aBundle.getVariants());
 		}
 
 		List<JoinableResourceBundle> resourcesBundles = factory.getResourceBundles(props);
@@ -819,7 +819,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		Properties props = new Properties();
 
 		JoinableResourceBundle stdBundle = getBundleWithVariants(DebugInclusion.ALWAYS);
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(stdBundle.getVariants());
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(stdBundle.getVariants());
 		JoinableResourceBundlePropertySerializer.serializeInProperties(stdBundle, "js", props);
 
 		List<JoinableResourceBundle> resourcesBundles = factory.getResourceBundles(props);
@@ -896,7 +896,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		Map<String, VariantSet> variants = new HashMap<>();
 		variants.put(JawrConstant.LOCALE_VARIANT_TYPE,
 				new VariantSet(JawrConstant.LOCALE_VARIANT_TYPE, "", Arrays.asList("", "fr", "en_US")));
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(variants);
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(variants);
 		bundle.setVariants(variants);
 		bundle.setBundleDataHashCode(null, "N123456");
 		bundle.setBundleDataHashCode("", "N123456");
@@ -1020,7 +1020,7 @@ public class FullMappingPropertiesBasedBundlesHandlerFactoryTestCase {
 		variants.put(JawrConstant.LOCALE_VARIANT_TYPE,
 				new VariantSet(JawrConstant.LOCALE_VARIANT_TYPE, "", Arrays.asList("", "fr", "en_US")));
 
-		when(generatorRegistry.getAvailableVariants(Matchers.anyString())).thenReturn(variants);
+		when(generatorRegistry.getAvailableVariants(ArgumentMatchers.anyString())).thenReturn(variants);
 		bundle.setVariants(variants);
 		bundle.setBundleDataHashCode(null, "N123456");
 		bundle.setBundleDataHashCode("@summer", "178456");

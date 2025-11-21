@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>net.jawr</groupId>
+        <groupId>com.journaltech</groupId>
         <artifactId>jawr-core-parent</artifactId>
-        <version>3.10-SNAPSHOT</version>
+        <version>3.10-jakarta-SNAPSHOT</version>
     </parent>
     <artifactId>jawr-integration-test</artifactId>
     <packaging>war</packaging>
@@ -13,11 +13,11 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>net.jawr</groupId>
+            <groupId>com.journaltech</groupId>
             <artifactId>jawr-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.jawr</groupId>
+            <groupId>com.journaltech</groupId>
             <artifactId>jawr-integration-test-utils</artifactId>
         </dependency>
         <!-- Webjars resources -->
@@ -71,23 +71,8 @@
             <groupId>org.jruby</groupId>
             <artifactId>jruby-stdlib</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.darrinholst</groupId>
-            <artifactId>sass-java-gems</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jruby</groupId>
-                    <artifactId>jruby-complete</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-		
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
+        <!-- jetty-maven-plugin is a Maven plugin, not a JAR dependency - removed -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -121,41 +106,39 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
+            <groupId>org.eclipse.jetty.ee11</groupId>
+            <artifactId>jetty-ee11-webapp</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>apache-jsp</artifactId>
+            <groupId>org.eclipse.jetty.ee11</groupId>
+            <artifactId>jetty-ee11-apache-jsp</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>apache-jstl</artifactId>
+            <groupId>org.eclipse.jetty.ee11</groupId>
+            <artifactId>jetty-ee11-annotations</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
-            <scope>compile</scope>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>el-impl</artifactId>
-            <version>2.2</version>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>5.0.0-M1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
+            <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
         </dependency>
     </dependencies>
@@ -183,8 +166,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <skip>false</skip>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=512m -verbose:gc -XX:+PrintClassHistogram</argLine>
+                    <!-- Skip tests during normal test phase - they run in integration-test phase -->
+                    <skip>true</skip>
+                    <!-- Updated for Java 17: Replaced MaxPermSize with MaxMetaspaceSize -->
+                    <argLine>-Xmx1024m -XX:MaxMetaspaceSize=512m -verbose:gc -XX:+PrintClassHistogram</argLine>
 		 </configuration>
                 <executions>
                     <execution>
@@ -210,13 +195,9 @@
                                     <name>test.initial.delay</name>
                                     <value>5000</value>
                                 </property>
-                                <property>
-                                    <name>com.sun.management.jmxremote</name>
-                                </property>
-                                <property>
-                                    <name>com.sun.management.jmxremote</name>
-                                </property>
-                                <argLine>-Xmx1024m -XX:PermSize=1024m -XX:MaxPermSize=1024m</argLine>
+                                <!-- Removed duplicate and conflicting JMX properties that cause port conflicts -->
+                                <!-- Updated for Java 17: Replaced PermSize with MetaspaceSize -->
+                                <argLine>-Xmx1024m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=1024m</argLine>
                             </systemProperties>
                         </configuration>
                     </execution>

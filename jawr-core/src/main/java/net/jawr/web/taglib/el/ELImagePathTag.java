@@ -13,7 +13,7 @@
  */
 package net.jawr.web.taglib.el;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 import net.jawr.web.taglib.ImagePathTag;
 

@@ -15,11 +15,9 @@
  */
 package net.jawr.web.taglib.el;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 import net.jawr.web.taglib.JavascriptBundleTag;
-
-import org.apache.taglibs.standard.lang.support.ExpressionEvaluatorManager;
 
 /**
  * This class defines the EL version of Javascript Bundle tag
@@ -151,31 +149,27 @@ public class ELJavascriptBundleTag extends JavascriptBundleTag {
 		String string = null;
 
 		if (srcExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("srcExpr", srcExpr, String.class, this, pageContext);
+			string = EvalHelper.evalString("srcExpr", srcExpr, this, pageContext);
 			setSrc(string);
 		}
 
 		if (typeExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("typeExpr", typeExpr, String.class, this,
-					pageContext);
+			string = EvalHelper.evalString("typeExpr", typeExpr, this, pageContext);
 			setType(string);
 		}
 
 		if (asyncExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("asyncExpr", asyncExpr, String.class, this,
-					pageContext);
+			string = EvalHelper.evalString("asyncExpr", asyncExpr, this, pageContext);
 			setAsync(string);
 		}
 
 		if (deferExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("deferExpr", deferExpr, String.class, this,
-					pageContext);
+			string = EvalHelper.evalString("deferExpr", deferExpr, this, pageContext);
 			setDefer(string);
 		}
 
 		if (useRandomParamExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("useRandomParamExpr", useRandomParamExpr,
-					String.class, this, pageContext);
+			string = EvalHelper.evalString("useRandomParamExpr", useRandomParamExpr, this, pageContext);
 			setUseRandomParam(string);
 		}
 

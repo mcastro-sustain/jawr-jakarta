@@ -15,9 +15,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +43,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
  * @author Ibrahim Chaehoi
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class JoinableResourceBundleSerializerTestCase {
 
 	@Mock
@@ -61,7 +61,7 @@ public class JoinableResourceBundleSerializerTestCase {
 		when(rsHandler.getFilePath("/bundle/content/script2.js")).thenReturn("/FS/bundle/content/script2.js");
 		when(rsHandler.getFilePath("/bundle/myScript.js")).thenReturn("/FS/bundle/myScript.js");
 		
-		when(rsHandler.getResourceNames(Matchers.anyString())).thenReturn(
+		when(rsHandler.getResourceNames(ArgumentMatchers.anyString())).thenReturn(
 				new HashSet<String>(Arrays.asList("script1.js", "script2.js")));
 		when(bundleProcessor.getId()).thenReturn(
 				"myBundlePostProcessor1,myBundlePostProcessor2");

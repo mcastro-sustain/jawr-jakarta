@@ -13,7 +13,7 @@
  */
 package net.jawr.web.resource.handler.reader;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 /**
  * This interface defines the interface to be implemented by any object that

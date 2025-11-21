@@ -1,18 +1,326 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <groupId>net.jawr</groupId>
-    <artifactId>jawr</artifactId>
-    <version>3.10-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>jawr-core-parent</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>jawr-core</module>
-    <module>jawr-integration-test</module>
-    <module>jawr-integration-test-utils</module>
-    <module>jawr-basicwebapp</module>
-    <module>jawr-basicwebapp-java-ee6</module>
-  </modules>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.journaltech</groupId>
+    <artifactId>jawr-core-parent</artifactId>
+    <version>3.10-jakarta-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JAWR Jakarta Parent</name>
+    <description>Javascript/CSS bundling and compressing tool for java web apps - Jakarta EE compatible</description>
+
+    <properties>
+        <!-- Java version -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Jakarta EE 11 versions -->
+        <jakarta.servlet.version>6.1.0</jakarta.servlet.version>
+        <jakarta.servlet.jsp.version>4.0.0</jakarta.servlet.jsp.version>
+        <jakarta.faces.version>4.1.0</jakarta.faces.version>
+        <jakarta.el.version>6.0.0</jakarta.el.version>
+
+        <!-- Testing -->
+        <junit.version>4.13.2</junit.version>
+        <mockito.version>4.11.0</mockito.version>
+
+        <!-- Logging -->
+        <slf4j.version>2.0.9</slf4j.version>
+        <log4j.version>2.21.1</log4j.version>
+
+        <!-- JavaScript/CSS Processing -->
+        <rhino.version>1.7.14</rhino.version>
+        <yuicompressor.version>2.4.8</yuicompressor.version>
+        <closure-compiler.version>v20231112</closure-compiler.version>
+        <less4j.version>1.17.2</less4j.version>
+        <vaadin-sass-compiler.version>0.9.13</vaadin-sass-compiler.version>
+        <smartsprites.version>0.2.10</smartsprites.version>
+
+        <!-- JRuby for Sass -->
+        <jruby.version>9.4.5.0</jruby.version>
+
+        <!-- Webjars -->
+        <webjars-locator.version>0.50</webjars-locator.version>
+        <bootstrap.version>3.2.0</bootstrap.version>
+        <jquery.version>3.7.1</jquery.version>
+        <jquery-ui.version>1.13.2</jquery-ui.version>
+
+        <!-- Other dependencies -->
+        <commons-validator.version>1.8.0</commons-validator.version>
+        <ehcache.version>2.10.9.2</ehcache.version>
+        <jackson.version>2.16.0</jackson.version>
+
+        <!-- Build plugins -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+
+        <!-- Server and testing -->
+        <jetty.version>12.1.4</jetty.version>
+        <htmlunit.version>4.5.0</htmlunit.version>
+
+        <!-- JSTL -->
+        <jstl.version>3.0.0</jstl.version>
+        <taglibs-standard.version>1.2.5</taglibs-standard.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Jakarta EE APIs -->
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta.servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.servlet.jsp</groupId>
+                <artifactId>jakarta.servlet.jsp-api</artifactId>
+                <version>${jakarta.servlet.jsp.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.faces</groupId>
+                <artifactId>jakarta.faces-api</artifactId>
+                <version>${jakarta.faces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.el</groupId>
+                <artifactId>jakarta.el-api</artifactId>
+                <version>${jakarta.el.version}</version>
+            </dependency>
+
+            <!-- JAWR Core -->
+            <dependency>
+                <groupId>com.journaltech</groupId>
+                <artifactId>jawr-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.journaltech</groupId>
+                <artifactId>jawr-integration-test-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+
+            <!-- JavaScript/CSS Processing -->
+            <dependency>
+                <groupId>org.mozilla</groupId>
+                <artifactId>rhino</artifactId>
+                <version>${rhino.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yahoo.platform.yui</groupId>
+                <artifactId>yuicompressor</artifactId>
+                <version>${yuicompressor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.javascript</groupId>
+                <artifactId>closure-compiler</artifactId>
+                <version>${closure-compiler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.sommeri</groupId>
+                <artifactId>less4j</artifactId>
+                <version>${less4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-sass-compiler</artifactId>
+                <version>${vaadin-sass-compiler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.carrotsearch</groupId>
+                <artifactId>smartsprites</artifactId>
+                <version>${smartsprites.version}</version>
+            </dependency>
+
+            <!-- JRuby -->
+            <dependency>
+                <groupId>org.jruby</groupId>
+                <artifactId>jruby-core</artifactId>
+                <version>${jruby.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jruby</groupId>
+                <artifactId>jruby-stdlib</artifactId>
+                <version>${jruby.version}</version>
+            </dependency>
+
+            <!-- Webjars -->
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>webjars-locator-core</artifactId>
+                <version>${webjars-locator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>${jquery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery-ui</artifactId>
+                <version>${jquery-ui.version}</version>
+            </dependency>
+
+            <!-- Other -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-json-org</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit</artifactId>
+                <version>${htmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- JSTL -->
+            <dependency>
+                <groupId>jakarta.servlet.jsp.jstl</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-spec</artifactId>
+                <version>1.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-impl</artifactId>
+                <version>1.2.5</version>
+            </dependency>
+
+            <!-- Jetty for testing -->
+            <dependency>
+                <groupId>org.eclipse.jetty.ee11</groupId>
+                <artifactId>jetty-ee11-webapp</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty.ee11</groupId>
+                <artifactId>jetty-ee11-annotations</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-jmx</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty.ee11</groupId>
+                <artifactId>jetty-ee11-apache-jsp</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>github-sustain</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/sustain/jawr-jakarta</url>
+        </repository>
+        <snapshotRepository>
+            <id>github-sustain</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/sustain/jawr-jakarta</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <modules>
+        <module>jawr-core</module>
+        <module>jawr-integration-test</module>
+        <module>jawr-integration-test-utils</module>
+        <module>jawr-basicwebapp</module>
+        <module>jawr-basicwebapp-java-ee6</module>
+    </modules>
 </project>

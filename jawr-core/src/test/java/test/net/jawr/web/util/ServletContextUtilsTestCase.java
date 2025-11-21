@@ -3,7 +3,7 @@ package test.net.jawr.web.util;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.util.ServletContextUtils;
 

@@ -13,7 +13,7 @@
  */
 package net.jawr.web.resource.bundle.locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * An adapter to let Jawr access the user's locale based on the current request.  

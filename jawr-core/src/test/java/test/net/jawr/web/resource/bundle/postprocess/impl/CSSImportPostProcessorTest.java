@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -26,9 +26,9 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
@@ -37,7 +37,7 @@ import test.net.jawr.web.servlet.mock.MockServletContext;
  * @author Ibrahim Chaehoi
  * 
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CSSImportPostProcessorTest {
 
 	private static String WORK_DIR = "workDirCssImport";
@@ -62,7 +62,7 @@ public class CSSImportPostProcessorTest {
 		final String urlPrefix = "/v00";
 
 		when(bundle.getId()).thenReturn(bundlePath);
-		when(bundle.getURLPrefix(Matchers.anyMap())).thenReturn(urlPrefix);
+		when(bundle.getURLPrefix(ArgumentMatchers.anyMap())).thenReturn(urlPrefix);
 		
 		config = new JawrConfig("css", new Properties());
 		ServletContext servletContext = new MockServletContext();

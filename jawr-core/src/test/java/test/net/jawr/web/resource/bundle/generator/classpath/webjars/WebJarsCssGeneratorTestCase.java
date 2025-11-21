@@ -6,18 +6,18 @@ import java.io.Reader;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -39,7 +39,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class WebJarsCssGeneratorTestCase {
 
 	private static final String WORK_DIR = "workDirWebJars";
@@ -97,7 +97,7 @@ public class WebJarsCssGeneratorTestCase {
 			public InputStream answer(InvocationOnMock invocation) throws Throwable {
 				return new ByteArrayInputStream("fakeData".getBytes());
 			}
-		}).when(binaryRsReaderHandler).getResourceAsStream(Matchers.anyString());
+		}).when(binaryRsReaderHandler).getResourceAsStream(ArgumentMatchers.anyString());
 
 		BinaryResourcesHandler binaryRsHandler = new BinaryResourcesHandler(binaryServletJawrConfig,
 				binaryRsReaderHandler, null);
@@ -116,7 +116,7 @@ public class WebJarsCssGeneratorTestCase {
 		when(generatorRegistry
 				.isGeneratedBinaryResource("webjars:/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.svg"))
 						.thenReturn(true);
-		when(generatorRegistry.isHandlingCssImage(Matchers.anyString())).thenReturn(true);
+		when(generatorRegistry.isHandlingCssImage(ArgumentMatchers.anyString())).thenReturn(true);
 
 		generator.setWorkingDirectory(FileUtils.getClasspathRootDir() + "/" + WORK_DIR);
 		generator.setResourceReaderHandler(rsReaderHandler);

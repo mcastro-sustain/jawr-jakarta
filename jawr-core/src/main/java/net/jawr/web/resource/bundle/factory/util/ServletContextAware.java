@@ -13,7 +13,7 @@
  */
 package net.jawr.web.resource.bundle.factory.util;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 /**
  * Defines a component which can get a ServletContext injected during initializing. 

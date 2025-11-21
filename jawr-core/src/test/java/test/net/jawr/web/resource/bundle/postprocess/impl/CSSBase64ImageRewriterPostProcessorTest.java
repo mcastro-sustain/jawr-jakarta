@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +33,7 @@ import net.jawr.web.resource.handler.reader.ResourceReaderHandler;
 import test.net.jawr.web.FileUtils;
 import test.net.jawr.web.servlet.mock.MockServletContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CSSBase64ImageRewriterPostProcessorTest {
 
 	@Mock
@@ -60,7 +60,7 @@ public class CSSBase64ImageRewriterPostProcessorTest {
 		clearWorkDirectory(workingDirectory);
 		
 		when(rsHandler.getWorkingDirectory()).thenReturn(workingDirectory);
-		when(rsHandler.getResourceAsStream(Matchers.anyString())).thenAnswer(new Answer<InputStream>() {
+		when(rsHandler.getResourceAsStream(ArgumentMatchers.anyString())).thenAnswer(new Answer<InputStream>() {
 			
 			@Override
 			public InputStream answer(InvocationOnMock invocation) throws Throwable {
@@ -86,7 +86,7 @@ public class CSSBase64ImageRewriterPostProcessorTest {
 		});
 		
 		when(bundle.getId()).thenReturn(bundlePath);
-		when(bundle.getURLPrefix(Matchers.anyMap())).thenReturn(urlPrefix);
+		when(bundle.getURLPrefix(ArgumentMatchers.anyMap())).thenReturn(urlPrefix);
 		config = new JawrConfig("css", new Properties());
 		ServletContext servletContext = new MockServletContext();
 		config.setContext(servletContext);

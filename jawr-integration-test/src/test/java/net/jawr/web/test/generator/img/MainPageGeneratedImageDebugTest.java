@@ -10,15 +10,14 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * Test case for page using inclusion features in debug mode.
- * 
+ *
  * @author ibrahim Chaehoi
  */
 @JawrTestConfigFiles(webXml = "net/jawr/web/generator/img/debug/config/web.xml", jawrConfig = "net/jawr/web/generator/img/debug/config/jawr.properties")
@@ -30,9 +29,9 @@ public class MainPageGeneratedImageDebugTest extends AbstractPageTest {
 	@Override
 	protected WebClient createWebClient() {
 		WebClient webClient = super.createWebClient();
-		
+
 		// Update the webClient so it will not throw an exception when it will try to load the external JS file which doesn't exists
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		return webClient;
 	}
 
@@ -43,7 +42,7 @@ public class MainPageGeneratedImageDebugTest extends AbstractPageTest {
 
 	@Test
 	public void testPageLoad() throws Exception {
-		
+
 		assertContentEquals("/net/jawr/web/generator/img/debug/resources/index-jsp-result-debug-mode-expected.txt", page);
 	}
 
@@ -67,9 +66,9 @@ public class MainPageGeneratedImageDebugTest extends AbstractPageTest {
 
 		final List<?> scripts = getJsScriptTags();
 		HtmlScript script = (HtmlScript) scripts.get(0);
-		JavaScriptPage page = getJavascriptPage(script);
+		TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/debug/resources/msg-debug.js", page);
-		
+
 		script = (HtmlScript) scripts.get(1);
 		page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/debug/resources/generatedContent.js", page);
@@ -84,7 +83,7 @@ public class MainPageGeneratedImageDebugTest extends AbstractPageTest {
 		Utils.assertGeneratedLinkEquals(
 				getUrlPrefix()+"/jawr_generator.css?d=11111&generationConfigParam=jar%3Afwk%2Fcss%2Ftemp.css",
 				css.getHrefAttribute());
-		
+
 		css = (HtmlLink) styleSheets.get(1);
 		Utils.assertGeneratedLinkEquals(
 				getUrlPrefix()+"/css/generator/one.css?d=11111",css.getHrefAttribute());
@@ -97,7 +96,7 @@ public class MainPageGeneratedImageDebugTest extends AbstractPageTest {
 		HtmlLink css = (HtmlLink) styleSheets.get(0);
 		TextPage page = getCssPage(css);
 		assertContentEquals("/net/jawr/web/generator/img/debug/resources/jar_temp.css", page);
-		
+
 		css = (HtmlLink) styleSheets.get(1);
 		page = getCssPage(css);
 		assertContentEquals("/net/jawr/web/generator/img/debug/resources/one.css", page);

@@ -15,11 +15,9 @@
  */
 package net.jawr.web.taglib.el;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 import net.jawr.web.taglib.CSSBundleTag;
-
-import org.apache.taglibs.standard.lang.support.ExpressionEvaluatorManager;
 
 /**
  * This class defines the EL version of Css Bundle tag
@@ -192,37 +190,32 @@ public class ELCSSBundleTag extends CSSBundleTag {
 		Boolean bool = null;
 
 		if (srcExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("srcExpr", srcExpr, String.class, this, pageContext);
+			string = EvalHelper.evalString("srcExpr", srcExpr, this, pageContext);
 			setSrc(string);
 		}
 
 		if (useRandomParamExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("useRandomParamExpr", useRandomParamExpr,
-					String.class, this, pageContext);
+			string = EvalHelper.evalString("useRandomParamExpr", useRandomParamExpr, this, pageContext);
 			setUseRandomParam(string);
 		}
 
 		if (mediaExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("mediaExpr", mediaExpr, String.class, this,
-					pageContext);
+			string = EvalHelper.evalString("mediaExpr", mediaExpr, this, pageContext);
 			setMedia(string);
 		}
 
 		if (titleExpr != null) {
-			string = (String) ExpressionEvaluatorManager.evaluate("titleExpr", titleExpr, String.class, this,
-					pageContext);
+			string = EvalHelper.evalString("titleExpr", titleExpr, this, pageContext);
 			setTitle(string);
 		}
 
 		if (alternateExpr != null) {
-			bool = (Boolean) ExpressionEvaluatorManager.evaluate("alternateExpr", alternateExpr, Boolean.class, this,
-					pageContext);
+			bool = EvalHelper.evalBoolean("alternateExpr", alternateExpr, this, pageContext);
 			setAlternate(bool);
 		}
 
 		if (displayAlternateExpr != null) {
-			bool = (Boolean) ExpressionEvaluatorManager.evaluate("displayAlternateExpr", displayAlternateExpr,
-					Boolean.class, this, pageContext);
+			bool = EvalHelper.evalBoolean("displayAlternateExpr", displayAlternateExpr, this, pageContext);
 			setAlternate(bool);
 		}
 

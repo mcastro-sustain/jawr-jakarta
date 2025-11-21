@@ -3,7 +3,7 @@
  */
 package net.jawr.web.test;
 
-import com.gargoylesoftware.htmlunit.WebClient;
+import org.htmlunit.WebClient;
 
 /**
  * Test case for standard page in production mode.

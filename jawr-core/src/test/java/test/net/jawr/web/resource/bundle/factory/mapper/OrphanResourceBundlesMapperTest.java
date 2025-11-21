@@ -12,11 +12,11 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +37,7 @@ import test.net.jawr.web.ResourceHandlerBasedUtils;
  * @author jhernandez
  * @author ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class OrphanResourceBundlesMapperTest {
 	private static final String ROOT_TESTDIR = "/orphanspathfactory/";
 	private OrphanResourceBundlesMapper factory;
@@ -118,7 +118,7 @@ public class OrphanResourceBundlesMapperTest {
 	private JoinableResourceBundle buildMockResourceBundle(final List<String> avoidedPaths, final Set<String> licenses) {
 		
 		JoinableResourceBundle bundle = Mockito.mock(JoinableResourceBundle.class);
-		when(bundle.belongsToBundle(Matchers.anyString())).then(new Answer<Object>() {
+		when(bundle.belongsToBundle(ArgumentMatchers.anyString())).then(new Answer<Object>() {
 
 			@Override
 			public Object answer(InvocationOnMock invocation) throws Throwable {

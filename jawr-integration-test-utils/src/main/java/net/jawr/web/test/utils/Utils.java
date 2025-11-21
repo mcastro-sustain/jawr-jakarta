@@ -2,8 +2,8 @@ package net.jawr.web.test.utils;
 
 import static org.junit.Assert.assertEquals;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.Page;
+import org.htmlunit.html.HtmlPage;
 
 
 /**

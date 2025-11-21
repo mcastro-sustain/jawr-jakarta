@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,7 +24,7 @@ import net.jawr.web.resource.bundle.sorting.GlobalResourceBundleComparator;
  * @author jhernandez
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class GlobalResourceBundleComparatorTest {
 
 	@Test

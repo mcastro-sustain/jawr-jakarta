@@ -8,9 +8,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlImage;
 
 import net.jawr.web.test.JawrTestConfigFiles;
 import net.jawr.web.test.utils.Utils;
@@ -36,7 +36,7 @@ public class MainPageDebugNoStrictModeTest extends MainPageDebugStrictModeTest {
 
 		// Check access to link with wrong hashcode already referenced in img tag
 		WebClient webClient = new WebClient();
-		webClient.setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		int status = webClient
 				.getPage(getServerUrlPrefix() + getUrlPrefix()
 						+ "/cb7777777/img/appIcons/application.png")

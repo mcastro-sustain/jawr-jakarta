@@ -10,10 +10,10 @@ import net.jawr.web.test.utils.Utils;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlLink;
 
 /**
  * Test case for page using image generator feature in production mode.
@@ -30,7 +30,7 @@ public class MainPageGeneratedResourceDisplayAlternateSkinDebugIECssBundleTest e
 	@Override
 	protected WebClient createWebClient() {
 		
-		WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_6);
+		WebClient webClient = new WebClient(BrowserVersion.EDGE);
 		// Defines the accepted language for the web client.
 		webClient.addRequestHeader("Accept-Language", getAcceptedLanguage());
 		return webClient;

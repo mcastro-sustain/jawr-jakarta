@@ -15,7 +15,7 @@ package net.jawr.web.taglib.jsf;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Abstract implementation of a facelets taglib component which will display

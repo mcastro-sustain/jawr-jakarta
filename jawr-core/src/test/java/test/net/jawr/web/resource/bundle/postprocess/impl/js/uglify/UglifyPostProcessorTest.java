@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import net.jawr.web.JawrConstant;
 import net.jawr.web.config.JawrConfig;
@@ -32,9 +32,9 @@ import net.jawr.web.resource.bundle.postprocess.impl.js.uglify.UglifyPostProcess
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import test.net.jawr.web.FileUtils;
 
@@ -43,7 +43,7 @@ import test.net.jawr.web.FileUtils;
  * 
  * @author Ibrahim Chaehoi
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class UglifyPostProcessorTest {
 
 	/** The post processor */
@@ -67,7 +67,7 @@ public class UglifyPostProcessorTest {
 		when(
 				config.getJavascriptEngineName()).thenReturn(
 				JawrConstant.DEFAULT_JS_ENGINE);
-		when(config.getJavascriptEngineName(Matchers.anyString())).thenReturn(
+		when(config.getJavascriptEngineName(ArgumentMatchers.anyString())).thenReturn(
 				JawrConstant.DEFAULT_JS_ENGINE);
 		when(config.getContext()).thenReturn(context);
 		when(config.getConfigProperties()).thenReturn(new Properties());

@@ -1,21 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>net.jawr</groupId>
+		<groupId>com.journaltech</groupId>
 		<artifactId>jawr-core-parent</artifactId>
-		<version>3.10-SNAPSHOT</version>
+		<version>3.10-jakarta-SNAPSHOT</version>
 	</parent>
 	<artifactId>jawr-basicwebapp-java-ee6</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>net.jawr</groupId>
+			<groupId>com.journaltech</groupId>
 			<artifactId>jawr-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -120,9 +119,9 @@
 						<version>${log4j.version}</version>
 					</dependency>
 					<dependency>
-						<groupId>javax.servlet</groupId>
-						<artifactId>servlet-api</artifactId>
-						<version>${servlet-api.version}</version>
+						<groupId>jakarta.servlet</groupId>
+						<artifactId>jakarta.servlet-api</artifactId>
+						<version>6.0.0</version>
 					</dependency>
 				</dependencies>
 				<executions>

@@ -16,7 +16,7 @@ package net.jawr.web.resource.bundle.locale;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Default implementation of the LocaleResolver interface. Uses

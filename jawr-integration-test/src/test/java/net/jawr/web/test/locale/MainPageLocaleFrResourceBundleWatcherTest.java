@@ -16,12 +16,11 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.TextPage;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlScript;
 
 import net.jawr.web.resource.bundle.IOUtils;
 import net.jawr.web.test.AbstractPageTest;
@@ -191,7 +190,7 @@ public class MainPageLocaleFrResourceBundleWatcherTest extends AbstractPageTest 
 
 		final List<?> scripts = getJsScriptTags();
 		final HtmlScript script = (HtmlScript) scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/locale/resources/msg-bundle-fr.js", page);
 	}
 
@@ -207,7 +206,7 @@ public class MainPageLocaleFrResourceBundleWatcherTest extends AbstractPageTest 
 
 		final List<?> scripts = getJsScriptTags();
 		final HtmlScript script = (HtmlScript) scripts.get(0);
-		final JavaScriptPage page = getJavascriptPage(script);
+		final TextPage page = getJavascriptPage(script);
 		assertContentEquals("/net/jawr/web/locale/resources/msg-bundle-fr-updated.js", page);
 	}
 	
