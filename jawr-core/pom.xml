@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.journaltech</groupId>
 		<artifactId>jawr-core-parent</artifactId>
-		<version>3.10-jakarta-SNAPSHOT</version>
+		<version>3.10-jakarta</version>
 	</parent>
 	<artifactId>jawr-core</artifactId>
 	<packaging>jar</packaging>
